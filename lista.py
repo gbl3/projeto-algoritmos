@@ -14,9 +14,38 @@ class Lista:
         return self.tamanho
     
     #TODO: implemente
-    def inserirOrdenado(self, item, cmp):    
-        
-        if( item.comparaPorPrefixo())
+    def inserirOrdenado(self, item, cmp): 
+        if self.tamanho == 0:
+            node = No(item)
+            self.primeiro = self.ultimo = node
+            self.tamanho += 1
+        else:
+            if cmp(item , self.primeiro.item) > 0:
+                node = No(item)
+                node.prox = self.primeiro
+                self.primeiro.ant = node
+                self.primeiro = node
+                self.tamanho +=1
+
+            elif cmp(item , self.ultimo.item) < 0:
+                node = No(item)
+                node.ant = self.ultimo
+                self.ultimo.prox = node
+                self.ultimo = node
+                self.tamanho +=1
+            else:
+                node = No(item)
+                ante = self.primeiro
+                atual = self.primeiro.prox
+                while atual != None and cmp(node.item , atual.item) < 0:
+                    ante = atual
+                    atual = atual.prox
+                node.prox = atual
+                if atual != None:
+                    atual.ant = node
+                    ante.prox = node
+                    node.ant = ante
+                self.tamanho += 1
 
 
         '''
@@ -24,15 +53,34 @@ class Lista:
         cmp: funcao de comparacao que retorna <0, 0 ou >0 se primeiro valor
             for menor, igual ou maior que o segundo valor 
         '''
-        pass
     
     #TODO: implemente    
+    def ultimo_item(self):
+        if self.ultimo != None:
+            return (self.ultimo.item.peso)
     def removerFim(self):
-        pass
+        
+        if self.tamanho == 1:
+            self.primeiro = self.ultimo = No()
+        else:
+            auxiliar = self.ultimo.ant
+            if auxiliar != None:
+                auxiliar.prox = None
+            self.ultimo = auxiliar
+        self.tamanho -= 1
     
     #TODO: implemente        
     def __str__(self):
-        return ""
-    
+        if self.primeiro == None:
+            return ""
+        else:
+            actual = self.primeiro
+            termos = ""
+            while actual != None:
+                termos += actual.item.termo +"\n"
+                actual = actual.prox
+
+            return termos
+                
     def __repr__(self):
         return str(self)
