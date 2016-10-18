@@ -1,8 +1,9 @@
 from palavra import *
 from lista import Lista
+from controle import Controle
 import time
 
-class Controle:
+class ControleList(Controle):
     def __init__(self):
         self.numeroTermos = 0
         self.termos = list()

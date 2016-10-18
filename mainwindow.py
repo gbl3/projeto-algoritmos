@@ -6,13 +6,13 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets,QtGui
 
 
-class Ui_MainWindow(object):        
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(400, 300)
+        MainWindow.resize(500, 300)
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.fileLabel = QtWidgets.QLabel(self.centralWidget)
@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         self.palavraText.setGeometry(QtCore.QRect(70, 50, 181, 21))
         self.palavraText.setObjectName("palavraText")
         self.outputText = QtWidgets.QTextEdit(self.centralWidget)
-        self.outputText.setGeometry(QtCore.QRect(10, 100, 371, 131))
+        self.outputText.setGeometry(QtCore.QRect(10, 100, 300, 131))
         self.outputText.setObjectName("outputText")
         self.resultadoLabel = QtWidgets.QLabel(self.centralWidget)
         self.resultadoLabel.setGeometry(QtCore.QRect(10, 80, 71, 16))
@@ -55,7 +55,40 @@ class Ui_MainWindow(object):
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
-        
+
+        self.TrieButton = QtWidgets.QRadioButton(self.centralWidget)
+        self.TrieButton.setEnabled(True)
+        self.TrieButton.setGeometry(QtCore.QRect(340, 50, 121, 17))
+        self.TrieButton.setCheckable(True)
+        self.TrieButton.setChecked(False)
+        self.TrieButton.setObjectName("TrieButton")
+        self.ListButton = QtWidgets.QRadioButton(self.centralWidget)
+        self.ListButton.setGeometry(QtCore.QRect(340, 10, 161, 17))
+        self.ListButton.setAutoFillBackground(False)
+        self.ListButton.setCheckable(True)
+        self.ListButton.setChecked(False)
+        self.ListButton.setObjectName("ListButton")
+
+        self.ExibeTempo = QtWidgets.QLCDNumber(self.centralWidget)
+        self.ExibeTempo.setGeometry(QtCore.QRect(340, 110, 131, 71))
+        self.ExibeTempo.setCursor(QtGui.QCursor(QtCore.Qt.BusyCursor))
+        self.ExibeTempo.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.ExibeTempo.setLineWidth(2)
+        self.ExibeTempo.setSmallDecimalPoint(False)
+        self.ExibeTempo.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
+        self.ExibeTempo.setProperty("intValue", 50)
+        self.ExibeTempo.setObjectName("ExibeTempo")
+        self.TimeLabel = QtWidgets.QLabel(self.centralWidget)
+        self.TimeLabel.setGeometry(QtCore.QRect(340, 80, 161, 21))
+        self.TimeLabel.setCursor(QtGui.QCursor(QtCore.Qt.BusyCursor))
+        self.TimeLabel.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.TimeLabel.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.TimeLabel.setLineWidth(2)
+        self.TimeLabel.setObjectName("TimeLabel")
+
+        self.ListButton.clicked['bool'].connect(self.TrieButton.setDisabled)
+        self.TrieButton.clicked['bool'].connect(self.ListButton.setDisabled)
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -68,3 +101,8 @@ class Ui_MainWindow(object):
         self.botaoOK.setText(_translate("MainWindow", "OK"))
         self.qtdPalavraLabel.setText(_translate("MainWindow", "Qtd:"))
         self.qtdPalavraText.setText(_translate("MainWindow", "5"))
+        self.TrieButton.setAccessibleName(_translate("MainWindow", "TrieButton"))
+        self.TrieButton.setText(_translate("MainWindow", "Árvore Trie Ternária"))
+        self.ListButton.setAccessibleName(_translate("MainWindow", "ListButton"))
+        self.ListButton.setText(_translate("MainWindow", "Lista duplamente encadeada"))
+        self.TimeLabel.setText(_translate("MainWindow", "Tempo decorrido(segundos):"))

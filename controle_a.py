@@ -1,16 +1,12 @@
 from palavra import *
 from lista import Lista
-import time
+from time import perf_counter
 
 class Controle:
     def __init__(self):
         self.numeroTermos = 0
         self.termos = list()
         self.dadosCarregados = True
-        self.tempoinicial = time.clock()
-    def tempo(self):
-        self.cronometro = time.clock() - self.tempoinicial
-        return self.cronometro
 
     def __apagarTermos(self):
         self.termos = []
@@ -81,6 +77,11 @@ class Controle:
                 meio = fim // 2
 
         return pos
+    def tempo(self):
+        self.inicio_tempo = perf_counter()
+    def getTempo(self):
+        self.fim = perf_counter() - self.inicio_tempo 
+        return self.fim
 
     #TODO: implemente
     def carregarDados(self,filename):
@@ -88,6 +89,7 @@ class Controle:
             self.__apagarTermos()
 
         #TODO: seu codigo aqui
+        self.tempo()
         consultas = open(filename,"r")
         linhas = consultas.readlines()
         aux_pulo = 0
@@ -109,7 +111,6 @@ class Controle:
 
     #TODO: implemente
     def find(self, prefixo, qtd):
-        self.tempoinicial = time.clock()
         self.inicio = self._Controle__firstIndexOf(prefixo)
         self.fim = self._Controle__lastIndexOf(prefixo)
         lista = Lista()
