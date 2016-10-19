@@ -1,9 +1,11 @@
 from mainwindow import Ui_MainWindow
 from controle import Controle
 from controle_list import ControleList
+from controle_trie import ControleTrie
 class GUI(Ui_MainWindow):
     def __init__(self):
         self.controle = Controle()
+        self.verificador = False
     def setupUi(self, MainWindow):
         Ui_MainWindow.setupUi(self, MainWindow)
         self.inputFileText.textChanged.connect(self.inputFileChanged)
@@ -29,19 +31,26 @@ class GUI(Ui_MainWindow):
                 self.TrieButton.setDisabled(self.palavraText.text().strip() != "")
     def mudaEstrutura(self):
         if self.TrieButton.isChecked():
-            print("Trie")
             self.outputText.clear()
-            #self.controle = ControleTrie()
-            #mudar controle para Controle da Trie
+            self.controle = ControleTrie()
+            if self.verificador:
+                self.carregarDados()
         elif self.ListButton.isChecked():
-            controle = ControleList()
+            self.controle = ControleList()
             self.outputText.clear()
+            if self.verificador:
+                self.carregarDados()
     def carregarDados(self):
-        self.controle.carregarDados(self.inputFileText.text())
+        
         if self.TrieButton.isChecked() or self.ListButton.isChecked():
             self.palavraText.setEnabled(True)
+            if not self.verificador:
+                self.mudaEstrutura()
+            self.controle.carregarDados(self.inputFileText.text())
+            self.verificador = True
         else:
             self.outputText.setText("Selecione uma das duas estruturas.")
+            
     def showTime(self,tempo):
         self.ExibeTempo.display(tempo)
     def autocompletar(self):

@@ -40,11 +40,14 @@ class Lista:
                 while atual != None and cmp(node.item , atual.item) < 0:
                     ante = atual
                     atual = atual.prox
-                node.prox = atual
+                node.ant = ante
+                ante.prox = node
+
                 if atual != None:
+                    node.prox = atual
                     atual.ant = node
-                    ante.prox = node
-                    node.ant = ante
+                ante.prox = node
+                node.ant = ante
                 self.tamanho += 1
 
 
@@ -66,6 +69,7 @@ class Lista:
             auxiliar = self.ultimo.ant
             if auxiliar != None:
                 auxiliar.prox = None
+            self.ultimo.ant = None
             self.ultimo = auxiliar
         self.tamanho -= 1
     

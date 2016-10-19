@@ -111,8 +111,8 @@ class ControleList(Controle):
     #TODO: implemente
     def find(self, prefixo, qtd):
         self.tempoinicial = time.clock()
-        self.inicio = self._Controle__firstIndexOf(prefixo)
-        self.fim = self._Controle__lastIndexOf(prefixo)
+        self.inicio = self._ControleList__firstIndexOf(prefixo)
+        self.fim = self._ControleList__lastIndexOf(prefixo)
         lista = Lista()
         erro = False
         for x in range(self.inicio,self.fim + 1):
